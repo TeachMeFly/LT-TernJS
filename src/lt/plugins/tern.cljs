@@ -459,9 +459,9 @@
                         (notifos/working (str "Connecting to: " (:name @this)))
                         (let [cp (js/require "child_process")
                               config (object/create ::tern.config)
-                              worker (.fork cp ternserver-path #js ["--harmony"] #js {:execPath (files/lt-home (node-exe))
+                              worker (.fork cp ternserver-path #js ["--harmony"] #js {:execPath js/process.execPath
                                                                                       :silent true
-                                                                                      :env #js {:NODE_PATH (files/join plugin-dir "node_modules")}
+                                                                                      :env {"ATOM_SHELL_INTERNAL_RUN_AS_NODE" 1}
                                                                                       :cwd files/pwd})
                               init-cb (fn [e paths]
                                         (if e
